@@ -3,9 +3,9 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer } from 'react-leaflet';
 // Custom
 import 'src/components/Map/MapView.scss'
-import { CurrentLocationMarker } from 'src/components/Map/MapTools';
+import { CurrentLocationMarker, BusStationMarkers } from 'src/components/Map/MapTools';
 //--------------------
-export default function MapView({ showCurrentLocation }) {
+export default function MapView({ showCurrentLocation, showBusStations }) {
     const center = [25.04795444238345, 121.51693473083246]; // 台北車站
     return (
         <MapContainer center={center} zoom={15}>
@@ -15,6 +15,7 @@ export default function MapView({ showCurrentLocation }) {
                 accessToken="aqrTBfZJJcxOqGScNRrCI5ncIG4mqpmT0Pc8U5FpomZf35CeRwRLRdqd6GWCVbuH"
             />
             {showCurrentLocation && <CurrentLocationMarker showCurrentLocation={showCurrentLocation} />}
+            {showBusStations && <BusStationMarkers showBusStations={showBusStations} />}
         </MapContainer >
     )
 }

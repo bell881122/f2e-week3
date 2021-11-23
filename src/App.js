@@ -6,11 +6,18 @@ import 'src/_global.scss'
 //--------------------
 export default function App() {
   const [showCurrentLocation, setshowCurrentLocation] = React.useState();
+  const [showBusStations, setshowBusStations] = React.useState();
 
   return (
     <>
-      <IconButtonGroups setshowCurrentLocation={setshowCurrentLocation} />
-      <MapView showCurrentLocation={showCurrentLocation} />
+      <IconButtonGroups
+        setshowCurrentLocation={setshowCurrentLocation}
+        setshowBusStations={setshowBusStations}
+      />
+      <MapView
+        showCurrentLocation={showCurrentLocation}
+        showBusStations={showBusStations}
+      />
     </>
   );
 }
