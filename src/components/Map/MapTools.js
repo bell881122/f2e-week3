@@ -25,7 +25,7 @@ export function CurrentLocationMarker({ showCurrentLocation }) {
             }]} />;
 }
 
-export function BusStationMarkers({ showBusStations }) {
+export function BusStationMarkers({ showBusStations, setbusCardList }) {
     const map = useMap();
     const [positionList, setpositionList] = React.useState(null);
 
@@ -40,7 +40,17 @@ export function BusStationMarkers({ showBusStations }) {
         <Markers positions={positionList.map((item, index) => {
             return {
                 name: item.StationName.Zh_tw,
-                position: [item.StationPosition.PositionLat, item.StationPosition.PositionLon]
+                position: [item.StationPosition.PositionLat, item.StationPosition.PositionLon],
+                onClick: () => {
+                    let list = item.Stops.map(item => {
+                        return {
+                            RouteID: item.RouteID,
+                            RouteUID: item.RouteUID,
+                            RouteName: item.RouteName.Zh_tw,
+                        }
+                    })
+                    setbusCardList(list);
+                },
             }
         })} />;
 }
