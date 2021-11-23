@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button';
-function App() {
+// Custom
+import MapView from "src/components/Map/MapView";
+import 'src/_global.scss'
+//--------------------
+export default function App() {
   return (
-    <div>
-      <Button variant="contained">Contained</Button>
-    </div>
+    <MapView />
   );
 }
-
-export default App;
