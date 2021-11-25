@@ -8,7 +8,8 @@ import { CurrentLocationMarker, BusStationMarkers } from 'src/components/Map/Map
 export default function MapView({
     showCurrentLocation,
     showBusStations,
-    setbusCardList,
+    setbusList,
+    setbusInfo,
 }) {
     const center = [25.04795444238345, 121.51693473083246]; // 台北車站
     return (
@@ -19,7 +20,13 @@ export default function MapView({
                 accessToken="aqrTBfZJJcxOqGScNRrCI5ncIG4mqpmT0Pc8U5FpomZf35CeRwRLRdqd6GWCVbuH"
             />
             {showCurrentLocation && <CurrentLocationMarker showCurrentLocation={showCurrentLocation} />}
-            {showBusStations && <BusStationMarkers showBusStations={showBusStations} setbusCardList={setbusCardList}/>}
+            {showBusStations &&
+                <BusStationMarkers
+                    showBusStations={showBusStations}
+                    setbusList={setbusList}
+                    setbusInfo={setbusInfo}
+                />
+            }
         </MapContainer >
     )
 }

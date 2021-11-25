@@ -1,14 +1,15 @@
 import React from 'react';
 // Custom
 import IconButtonGroups from 'src/components/IconButtonGroups';
-import BusCardList from 'src/components/BusCardList';
+import BusSection from 'src/components/BusSection';
 import MapView from "src/components/Map/MapView";
 import 'src/_global.scss'
 //--------------------
 export default function App() {
   const [showCurrentLocation, setshowCurrentLocation] = React.useState();
   const [showBusStations, setshowBusStations] = React.useState();
-  const [busCardList, setbusCardList] = React.useState();
+  const [busList, setbusList] = React.useState();
+  const [busInfo, setbusInfo] = React.useState();
 
   return (
     <>
@@ -19,9 +20,14 @@ export default function App() {
       <MapView
         showCurrentLocation={showCurrentLocation}
         showBusStations={showBusStations}
-        setbusCardList={setbusCardList}
+        setbusList={setbusList}
+        setbusInfo={setbusInfo}
       />
-      <BusCardList list={busCardList} />
+      <BusSection
+        busList={busList}
+        busInfo={busInfo}
+        setbusInfo={setbusInfo}
+      />
     </>
   );
 }

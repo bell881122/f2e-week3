@@ -1,12 +1,24 @@
 import axios from 'axios'
 import { getAuthorizationHeader } from 'src/service/_config'
 //--------------------
-export function getBusNearbyStation(setdata, lat, lng) {
-    (async () => await axios({
+function getPromise(url) {
+    return (async () => await axios({
         method: 'get',
-        url: `https://ptx.transportdata.tw/MOTC/v2/Bus/Station/NearBy?$spatialFilter=nearby(${lat}%2C%20${lng}%2C%201000)&$format=JSON`,
+        url: url,
         headers: getAuthorizationHeader()
-    }))().then(res => {
-        setdata(res.data);
-    }).catch(err => console.log(err))
+    }))()
+}
+
+export function getBusNearbyStation(setdata, lat, lng) {
+    getPromise(`https://ptx.transportdata.tw/MOTC/v2/Bus/Station/NearBy?$spatialFilter=nearby(${lat}%2C%20${lng}%2C%201000)&$format=JSON`)
+        .then(res => {
+            setdata(res.data);
+        }).catch(err => console.log(err))
+}
+
+export function getStopOfRoute(setdata, RouteName, RouteUID) {
+    getPromise(`https://ptx.transportdata.tw/MOTC/v2/Bus/DisplayStopOfRoute/City/Taipei/${RouteName}?$filter=RouteUID%20eq%20'${RouteUID}'&$top=30&$format=JSON`)
+        .then(res => {
+            setdata(res.data)
+        }).catch(err => console.log(err))
 }
