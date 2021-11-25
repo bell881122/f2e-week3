@@ -1,12 +1,15 @@
 import React from 'react';
 import { useMap } from 'react-leaflet';
+import { useSelector } from 'react-redux';
 // Custom
 import Markers from 'src/components/Map/Markers';
 import { getBusNearbyStation } from 'src/service/getData'
+import { selectShowCurrentLocation } from 'src/reducer/mapReducer';
 //--------------------
-export function CurrentLocationMarker({ showCurrentLocation }) {
+export function CurrentLocationMarker() {
     const map = useMap();
     const [position, setPosition] = React.useState(null);
+    const showCurrentLocation = useSelector(selectShowCurrentLocation);
 
     React.useEffect(() => {
         if (map && showCurrentLocation) {

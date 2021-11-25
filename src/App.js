@@ -4,21 +4,20 @@ import IconButtonGroups from 'src/components/IconButtonGroups';
 import BusSection from 'src/components/BusSection';
 import MapView from "src/components/Map/MapView";
 import 'src/_global.scss'
+import { store } from 'src/store/store';
+import { Provider } from 'react-redux';
 //--------------------
 export default function App() {
-  const [showCurrentLocation, setshowCurrentLocation] = React.useState();
   const [showBusStations, setshowBusStations] = React.useState();
   const [busList, setbusList] = React.useState();
   const [busInfo, setbusInfo] = React.useState();
 
   return (
-    <>
+    <Provider store={store}>
       <IconButtonGroups
-        setshowCurrentLocation={setshowCurrentLocation}
         setshowBusStations={setshowBusStations}
       />
       <MapView
-        showCurrentLocation={showCurrentLocation}
         showBusStations={showBusStations}
         setbusList={setbusList}
         setbusInfo={setbusInfo}
@@ -28,6 +27,6 @@ export default function App() {
         busInfo={busInfo}
         setbusInfo={setbusInfo}
       />
-    </>
+    </Provider>
   );
 }
