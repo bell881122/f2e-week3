@@ -14,10 +14,18 @@ export default function BusInfo({ busInfo, setbusInfo }) {
     const [direction, setdirection] = React.useState(0);
 
     React.useEffect(() => {
+        let intervalId;
         if (busInfo) {
-            getStopOfRoute(setrouteStops, busInfo.RouteName, busInfo.RouteUID)
-            getEstimatedTime(setestimatedTime, busInfo.RouteName, busInfo.RouteUID)
+            // 初始化資料
+            getStopOfRoute(setrouteStops, busInfo.RouteName, busInfo.RouteUID);
+            getEstimatedTime(setestimatedTime, busInfo.RouteName, busInfo.RouteUID);
+            // 每 10 秒更新到站資訊
+            intervalId = setInterval(() => {
+                getEstimatedTime(setestimatedTime, busInfo.RouteName, busInfo.RouteUID);
+            }, 1000)
         }
+
+        return () => clearInterval(intervalId);
     }, [busInfo]);
 
     return (busInfo ?
