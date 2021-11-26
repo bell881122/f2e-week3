@@ -1,30 +1,30 @@
 import React from 'react';
 import { useMap } from 'react-leaflet';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // Custom
 import Markers from 'src/components/Map/Markers';
 import { getBusNearbyStation } from 'src/service/getData'
-import { selectData } from 'src/reducer/mapReducer';
+import { actions, selectData } from 'src/reducer/mapReducer';
 //--------------------
 export function CurrentLocationMarker() {
     const map = useMap();
-    const [position, setPosition] = React.useState(null);
-    const { showCurrentLocation } = useSelector(selectData);
+    const dispatch = useDispatch();
+    const { showCurrentLocation, currentLocation } = useSelector(selectData);
 
     React.useEffect(() => {
-        if (map && showCurrentLocation) {
+        if (map && showCurrentLocation && dispatch) {
             map.locate().on("locationfound", function (e) {
-                setPosition(e.latlng);
+                dispatch(actions.setCurrentLocation(e.latlng))
                 map.flyTo(e.latlng, map.getZoom());
             });
         }
-    }, [map, showCurrentLocation]);
+    }, [map, showCurrentLocation, dispatch]);
 
-    return position === null ? null :
+    return currentLocation === undefined ? null :
         <Markers color="red"
             positions={[{
                 name: "現在位置",
-                position: [position.lat, position.lng]
+                position: [currentLocation.lat, currentLocation.lng]
             }]} />;
 }
 

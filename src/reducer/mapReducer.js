@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     showCurrentLocation: undefined,
     showBusStations: undefined,
+    currentLocation: undefined,
 };
 
 export const counterSlice = createSlice({
@@ -14,6 +15,9 @@ export const counterSlice = createSlice({
         },
         setShowBusStations: state => {
             state.showBusStations = {}
+        },
+        setCurrentLocation: (state, action) => {
+            state.currentLocation = action.payload;
         },
     },
 });
