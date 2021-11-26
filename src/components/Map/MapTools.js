@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 // Custom
 import Markers from 'src/components/Map/Markers';
 import { getBusNearbyStation } from 'src/service/getData'
-import { selectShowCurrentLocation } from 'src/reducer/mapReducer';
+import { selectData } from 'src/reducer/mapReducer';
 //--------------------
 export function CurrentLocationMarker() {
     const map = useMap();
     const [position, setPosition] = React.useState(null);
-    const showCurrentLocation = useSelector(selectShowCurrentLocation);
+    const { showCurrentLocation } = useSelector(selectData);
 
     React.useEffect(() => {
         if (map && showCurrentLocation) {
@@ -28,8 +28,9 @@ export function CurrentLocationMarker() {
             }]} />;
 }
 
-export function BusStationMarkers({ showBusStations, setbusList, setbusInfo }) {
+export function BusStationMarkers({ setbusList, setbusInfo }) {
     const map = useMap();
+    const { showBusStations } = useSelector(selectData);
     const [positionList, setpositionList] = React.useState(null);
 
     React.useEffect(() => {

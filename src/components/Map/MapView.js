@@ -5,14 +5,10 @@ import { useSelector } from 'react-redux';
 // Custom
 import 'src/components/Map/MapView.scss'
 import { CurrentLocationMarker, BusStationMarkers } from 'src/components/Map/MapTools';
-import { selectShowCurrentLocation } from 'src/reducer/mapReducer';
+import { selectData } from 'src/reducer/mapReducer';
 //--------------------
-export default function MapView({
-    showBusStations,
-    setbusList,
-    setbusInfo,
-}) {
-    const showCurrentLocation = useSelector(selectShowCurrentLocation);
+export default function MapView({ setbusList, setbusInfo }) {
+    const { showCurrentLocation, showBusStations } = useSelector(selectData);
     const center = [25.04795444238345, 121.51693473083246]; // 台北車站
 
     return (

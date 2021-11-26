@@ -4,19 +4,22 @@ import IconButton from '@mui/material/IconButton';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 // Custom
-import { setShowCurrentLocation } from 'src/reducer/mapReducer';
+import { actions } from 'src/reducer/mapReducer';
 //--------------------
-export default function IconButtonTool({ setshowBusStations }) {
+export default function IconButtonTool() {
   const dispatch = useDispatch();
-  const list = [<GpsFixedIcon />, <DirectionsBusIcon />];
+  const list = [
+    { icon: <GpsFixedIcon />, onClick: actions.setShowCurrentLocation },
+    { icon: <DirectionsBusIcon />, onClick: actions.setShowBusStations },
+  ]
 
   return (
     <div style={{ position: 'absolute', top: 80, left: 10, zIndex: 401 }}>
-      {list.map((icon, index) =>
+      {list.map((item, index) =>
         <div key={index} style={{ backgroundColor: '#fff', borderRadius: '50%', marginTop: '8px' }} >
           <IconButton color="primary" size="small" aria-label="Icon"
-            onClick={() => index === 0 ? dispatch(setShowCurrentLocation()) : setshowBusStations([])}
-          >{icon}</IconButton>
+            onClick={() => dispatch(item.onClick())}
+          >{item.icon}</IconButton>
         </div>
       )}
     </div>

@@ -8,17 +8,13 @@ import { store } from 'src/store/store';
 import { Provider } from 'react-redux';
 //--------------------
 export default function App() {
-  const [showBusStations, setshowBusStations] = React.useState();
   const [busList, setbusList] = React.useState();
   const [busInfo, setbusInfo] = React.useState();
 
   return (
     <Provider store={store}>
-      <IconButtonGroups
-        setshowBusStations={setshowBusStations}
-      />
+      <IconButtonGroups />
       <MapView
-        showBusStations={showBusStations}
         setbusList={setbusList}
         setbusInfo={setbusInfo}
       />

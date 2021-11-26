@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     showCurrentLocation: undefined,
+    showBusStations: undefined,
 };
 
 export const counterSlice = createSlice({
@@ -10,11 +11,13 @@ export const counterSlice = createSlice({
     reducers: {
         setShowCurrentLocation: state => {
             state.showCurrentLocation = {}
-        }
+        },
+        setShowBusStations: state => {
+            state.showBusStations = {}
+        },
     },
 });
 
 export default counterSlice.reducer;
-export const { setShowCurrentLocation } = counterSlice.actions;
-//selector
-export const selectShowCurrentLocation = state => state.dataState.showCurrentLocation;
+export const actions = counterSlice.actions;
+export const selectData = state => state.dataState;
