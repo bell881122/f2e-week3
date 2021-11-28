@@ -5,23 +5,31 @@ import Divider from '@mui/material/Divider';
 import 'src/_global.scss'
 // Custom
 import Selector from 'src/components/Selector';
-import { getCities } from 'src/service/getData'
+import { getBusRouteByCity } from 'src/service/getData'
+import Cities from 'src/service/cities.json'
 //-------------------
 function App() {
+  const [city, setcity] = React.useState('');
+  const [routes, setroutes] = React.useState('');
+  const [route, setroute] = React.useState('');
+  const [routeData, setrouteData] = React.useState('');
 
   React.useEffect(() => {
-    getCities();
-  }, [getCities]);
+    if (city) {
+      getBusRouteByCity(setroutes, city,);
+      setroute("")
+    }
+  }, [setroutes, city]);
 
   return (
     <div>
       <Box display="flex" mb={1}>
-        <Selector />
-        <Selector />
+        <Selector label="縣市" options={Cities} data={city} setData={setcity} />
+        <Box mr={1} />
+        {city && routes &&
+          <Selector label="路線" options={routes} data={route} setData={setroute} setData2={setrouteData}/>
+        }
       </Box>
-
-
-
 
       <Box borderRadius={2} boxShadow={3}>
         <Box borderRadius={2} className="bg-primary300" style={{ padding: '16px 32px', borderBottomLeftRadius: '0', borderBottomRightRadius: '0' }}>

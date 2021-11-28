@@ -9,11 +9,17 @@ function getPromise(url) {
     }))()
 }
 
-export function getCities() {
-    getPromise("https://link.motc.gov.tw/v2/Basic/City?$format=JSON")
+export function getBusRouteByCity(setData, city) {
+    getPromise(`https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${city}?$format=JSON`)
         .then(res => {
-            debugger;
             console.log(res.data)
-            // setdata(res.data);
+            setData(res.data.sort((a, b) => ('' + a.RouteName.Zh_tw).localeCompare(b.RouteName.Zh_tw)))
         }).catch(err => console.log(err))
 }
+
+// export function getBusRouteByCity(setData, city) {
+//     getPromise(`https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${city}?$format=JSON`)
+//         .then(res => {
+//             setData(res.data.sort((a, b) => ('' + a.RouteName.Zh_tw).localeCompare(b.RouteName.Zh_tw)))
+//         }).catch(err => console.log(err))
+// }
