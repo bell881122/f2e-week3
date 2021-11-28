@@ -6,10 +6,13 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
 //-------------------
-export default function Selector({ label, options, data, setData, setData2 }) {
+export default function Selector({ label, options, data, setData, setData2, setdirection, setstopsData }) {
     const handleChange = e => {
         setData(e.target.value);
-        if (label === "縣市") setData2("")
+        setdirection(0);
+        setstopsData(undefined);
+        if (label === "縣市")
+            setData2("")
     };
 
     return (
