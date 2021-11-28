@@ -3,6 +3,7 @@ import React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
 //-------------------
 export default function Selector({ label, options, data, setData, setData2 }) {
@@ -11,7 +12,7 @@ export default function Selector({ label, options, data, setData, setData2 }) {
     };
 
     return (
-        <FormControl size="small" fullWidth>
+        <FormControl size="small" fullWidth error={!options.length}>
             <InputLabel id="demo-simple-select-label">{label}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
@@ -20,12 +21,14 @@ export default function Selector({ label, options, data, setData, setData2 }) {
                 label="City"
                 onChange={handleChange}
             >
-                {options.map((item) => (
+                {options && options.map((item) => (
                     <MenuItem key={item.RouteUID || item.CityID} value={(item.RouteName && item.RouteName.Zh_tw) || item.City}
                         onClick={() => { if (setData2) setData2(item) }}
                     >{(item.RouteName && item.RouteName.Zh_tw) || item.CityName}</MenuItem>
                 ))}
             </Select>
+            {!options.length && <FormHelperText>請選擇縣市</FormHelperText>}
+            
         </FormControl >
     );
 }
