@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 export default function Selector({ label, options, data, setData, setData2 }) {
     const handleChange = e => {
         setData(e.target.value);
+        if (label === "縣市") setData2("")
     };
 
     return (
@@ -23,12 +24,11 @@ export default function Selector({ label, options, data, setData, setData2 }) {
             >
                 {options && options.map((item) => (
                     <MenuItem key={item.RouteUID || item.CityID} value={(item.RouteName && item.RouteName.Zh_tw) || item.City}
-                        onClick={() => { if (setData2) setData2(item) }}
+                        onClick={() => { if (label === "路線") setData2(item) }}
                     >{(item.RouteName && item.RouteName.Zh_tw) || item.CityName}</MenuItem>
                 ))}
             </Select>
             {!options.length && <FormHelperText>請選擇縣市</FormHelperText>}
-            
         </FormControl >
     );
 }

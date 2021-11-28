@@ -6,37 +6,40 @@ import MapIcon from '@mui/icons-material/Map';
 import 'src/_global.scss'
 // Custom
 import Selector from 'src/components/Selector';
-import { getBusRouteByCity } from 'src/service/getData'
+import { getBusRouteByCity, getStopOfRoute, getEstimatedTime } from 'src/service/getData'
 import Cities from 'src/service/cities.json'
 //-------------------
 function App() {
   const [city, setcity] = React.useState('');
   const [routes, setroutes] = React.useState('');
   const [route, setroute] = React.useState('');
-  const [routeData, setrouteData] = React.useState('');
+  const [routeData, setrouteData] = React.useState();
 
   React.useEffect(() => {
     if (city) {
       getBusRouteByCity(setroutes, city,);
-      setroute("")
     }
-  }, [setroutes, city]);
+    if (city && routeData && routeData.RouteName.Zh_tw && routeData.RouteUID) {
+      getStopOfRoute(city, routeData.RouteName.Zh_tw, routeData.RouteUID)
+      getEstimatedTime(city, routeData.RouteName.Zh_tw, routeData.RouteUID)
+    }
+  }, [setroutes, city, routeData]);
 
-  React.useEffect(() => {
-    if (route) {
-      console.log(route)
-    }
-  }, [route]);
-  React.useEffect(() => {
-    if (routeData) {
-      console.log(routeData)
-    }
-  }, [routeData]);
+  // React.useEffect(() => {
+  //   if (route) {
+  //     console.log(route)
+  //   }
+  // }, [route]);
+  // React.useEffect(() => {
+  //   if (routeData) {
+  //     console.log(routeData)
+  //   }
+  // }, [routeData]);
 
   return (
     <div style={{ maxWidth: '500px' }}>
       <Box display="flex" mb={1}>
-        <Selector label="縣市" options={Cities} data={city} setData={setcity} />
+        <Selector label="縣市" options={Cities} data={city} setData={setcity} setData2={setroute} />
         {city && routes &&
           <>
             <Box mr={1} />
