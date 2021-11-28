@@ -5,8 +5,14 @@ import Divider from '@mui/material/Divider';
 import 'src/_global.scss'
 // Custom
 import Selector from 'src/components/Selector';
+import { getCities } from 'src/service/getData'
 //-------------------
 function App() {
+
+  React.useEffect(() => {
+    getCities();
+  }, [getCities]);
+
   return (
     <div>
       <Box display="flex" mb={1}>

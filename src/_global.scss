@@ -1,0 +1,36 @@
+$primary400:#4EA476;
+$primary300:lighten($primary400, 10%);
+$primary200:lighten($primary400, 20%);
+$primary100:lighten($primary400, 30%);
+$primary500:darken($primary400, 10%);
+$primary600:darken($primary400, 20%);
+$primary700:darken($primary400, 30%);
+
+.primary400 {
+    color: $primary400;
+}
+
+.bg-primary200 {
+    background-color: $primary200;
+}
+
+.bg-primary300 {
+    background-color: $primary300;
+}
+
+.bg-primary400 {
+    background-color: $primary400;
+}
+
+.bg-primary500 {
+    background-color: $primary500;
+}
+
+.border-primary400 {
+    border: 1px solid $primary500;
+}
+
+h2,
+p {
+    margin: 0;
+}
