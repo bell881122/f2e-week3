@@ -2,7 +2,7 @@ import React from 'react';
 // MUI
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import MapIcon from '@mui/icons-material/Map';
+import InfoIcon from '@mui/icons-material/Info';
 import 'src/_global.scss'
 // Custom
 import Selector from 'src/components/Selector';
@@ -27,29 +27,34 @@ function App() {
   }, [setroutes, city, routeData]);
 
   const directionButton = (str, dir) => (
-    <Box
-      style={{ width: '50%', color: dir === direction ? '#fff' : '#000', fontWeight: dir === direction ? 'bold' : 'normal' }}
-      onClick={() => setdirection(dir)}
-    > 往 {str}</Box >
+    <a href="/"
+      style={{
+        display: 'block',
+        textDecoration: 'none',
+        width: '50%',
+        color: dir === direction ? '#fff' : '#000',
+        fontWeight: dir === direction ? 'bold' : 'normal'
+      }}
+      onClick={e => {
+        e.preventDefault()
+        setdirection(dir)
+      }}
+    > 往 {str}</a >
   )
 
   return (
-    <div style={{ maxWidth: '500px', padding: '12px 20px' }}>
+    <div style={{ maxWidth: '400px', padding: '12px 20px' }}>
       <Box display="flex" mb={1}>
         <Selector label="縣市" options={Cities} data={city} setData={setcity} setData2={setroute} setdirection={setdirection} setstopsData={setstopsData} />
-        {city && routes &&
-          <>
-            <Box mr={1} />
-            <Selector label="路線" options={routes} data={route} setData={setroute} setData2={setrouteData} setdirection={setdirection} setstopsData={setstopsData} />
-          </>
-        }
+        <Box mr={1} />
+        <Selector label="路線" options={routes} data={route} setData={setroute} setData2={setrouteData} setdirection={setdirection} setstopsData={setstopsData} />
       </Box>
 
       {routeData &&
         <Box borderRadius={2} boxShadow={3}>
           <Box borderRadius={2} display="flex" className="bg-primary300" style={{ color: '#fff', padding: '16px 32px', borderBottomLeftRadius: '0', borderBottomRightRadius: '0' }}>
             <h2 style={{ width: '100%' }}>{routeData.RouteName.Zh_tw}</h2>
-            <a href={routeData.RouteMapImageUrl} target="_blank" rel="noreferrer" style={{ display: 'block', marginLeft: 'auto', color: '#fff' }} ><MapIcon /></a>
+            <a href={routeData.RouteMapImageUrl} target="_blank" rel="noreferrer" style={{ display: 'block', marginLeft: 'auto', color: '#fff' }} ><InfoIcon /></a>
           </Box>
           <Box className="bg-primary200" display="flex" style={{ padding: '8px 0', textAlign: 'center' }}>
             {directionButton(routeData.DepartureStopNameZh, 0)}
@@ -60,7 +65,7 @@ function App() {
           <Box style={{ padding: '8px 20px' }}>
             {stopsData ? stopsData.map((item, index) => (
               item.Direction === direction && (
-                <>
+                <Box key={item.StopUID}>
                   <Box display="flex" style={{ padding: '8px 0' }}>
                     <Box borderRadius={2} display="flex" className="border-primary400">
                       <p className="primary400" style={{ width: '60px', textAlign: 'center', margin: 'auto 0' }}>
@@ -70,7 +75,7 @@ function App() {
                     <p style={{ margin: 'auto 0 auto 8px', fontWeight: 'bold' }}>{item.StopName.Zh_tw}</p>
                   </Box>
                   <Divider light />
-                </>)
+                </Box>)
             )) : <>暫無資料</>}
           </Box>
         </Box>

@@ -19,7 +19,20 @@ export function getBusRouteByCity(setData, city) {
 export function getEstimatedTime(setData, city, routeName, routeUID) {
     getPromise(`https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${city}/${routeName}?$filter=RouteUID%20eq%20'${routeUID}'&$top=100&$format=JSON`)
         .then(res => {
-            if (res.data.length > 0)
-                setData(res.data)
+            let data = res.data;
+            if (data.length > 0) {
+                const set = new Set();
+                let arr = [];
+                data = data.filter(item => item.PlateNumb !== "-1");
+                data = data.forEach(item => {
+                    if (set.has(item.StopUID)) {
+                        return true;
+                    } else {
+                        set.add(item.StopUID);
+                        arr.push(item)
+                    }
+                });
+                setData(arr);
+            }
         }).catch(err => console.log(err))
 }
